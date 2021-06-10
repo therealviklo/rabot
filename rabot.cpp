@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdio>
 #include <cstring>
+#include "raboter.cpp"
 
 #define BITS(n) ((unsigned)(~(((char)0x80) >> (7 - n))))
 
@@ -94,34 +95,6 @@ void writeMidiFile(Bytes& b, const Track& track)
 	const auto oldSize = b.size();
 	b.resize(oldSize + track.b.size());
 	std::memcpy(&b[oldSize], track.b.data(), track.b.size());
-}
-
-unsigned raboter(unsigned x)
-{
-	if (x == 0u) return 0u;
-
-	unsigned op = 0u;
-	unsigned c = 1u << (8u * sizeof(unsigned) - 1u);
-	while (((c & x) == 0u) && c) c >>= 1u;
-
-	unsigned bit = 1u;
-	c >>= 1u;
-
-	while (c)
-	{
-		if ((c & x) && bit)
-		{
-			op = (op << 1u) | 1u;
-		}
-		else if (!(c & x) && !bit)
-		{
-			op = op << 1u;
-		}
-
-		bit = c & x;
-		c >>= 1u;
-	}
-	return op;
 }
 
 int main(int argc, char* argv[])

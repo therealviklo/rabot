@@ -1,5 +1,6 @@
 rabot
-rabot.mid
+rabotvis
+*.mid
 .vscode
 *.exe
 *.obj
